@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        #image {
+            width: 500px;
+            height: 300px;
+            background-color: #f0f0f0;
+            margin: 20px auto;
+            text-align: center;
+            line-height: 300px;
+            font-size: 20px;
+            font-weight: bold;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.3s ease-in-out;
+        }
+
+        .image-name {
+            font-size: 18px;
+            font-weight: normal;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="image">Hover over an image below to display here</div>
+    <div class="image-name" id="imageName"> </div> <!-- Text name will be displayed here -->
+
+    <div class="gallery">
+        <img src="images/photo1.jpg" alt="Photo 1" class="thumbnail">
+        <img src="images/photo2.jpg" alt="Photo 2" class="thumbnail">
+        <img src="images/photo3.jpg" alt="Photo 3" class="thumbnail">
+        <img src="images/photo4.jpg" alt="Photo 4" class="thumbnail">
+        <img src="images/photo5.jpg" alt="Photo 5" class="thumbnail">
+        <img src="images/photo6.jpg" alt="Photo 6" class="thumbnail">
+    </div>
+
+    <script>
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const imageDiv = document.getElementById('image');
+        const imageNameDiv = document.getElementById('imageName');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('mouseover', function() {
+                updateImage(thumbnail.src, thumbnail.alt);
+            });
+
+            thumbnail.addEventListener('mouseout', resetImage);
+        });
+
+        function updateImage(imageSrc, imageAlt) {
+            imageDiv.style.backgroundImage = `url(${imageSrc})`;
+            imageNameDiv.innerHTML = imageAlt; // Display the image alt text below the image
+            imageDiv.innerHTML = ''; // Clear the text inside the image container
+        }
+
+        function resetImage() {
+            imageDiv.style.backgroundImage = '';
+            imageNameDiv.innerHTML = 'Hover over an image below to display here'; // Reset the text
+            imageDiv.innerHTML = 'Hover over an image below to display here'; // Reset the placeholder text
+        }
+    </script>
+</body>
+</html>
